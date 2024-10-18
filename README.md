@@ -1,4 +1,6 @@
 World Life Expectancy SQL Project
+
+
 This project contains SQL queries designed for analyzing and exploring the World Life Expectancy dataset. The dataset includes various metrics such as life expectancy, adult mortality, GDP, and health indicators for different countries over multiple years.
 
 Files Included
