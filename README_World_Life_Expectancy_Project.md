@@ -1,75 +1,97 @@
+# **World Life Expectancy Analysis Project**
 
-**World Life Expectancy SQL Project**
-
-This project contains SQL queries designed for analyzing and exploring the World Life Expectancy dataset. The dataset includes various metrics such as life expectancy, adult mortality, GDP, and health indicators for different countries over multiple years.
-
----
-
-**Files Included**
-
-- **World_Life_Expectancy_SQL.sql**: This file contains all the SQL queries used for data cleaning, exploratory data analysis (EDA), and deriving insights from the dataset.
-- **WorldLifeExpectancy.csv**: The dataset in CSV format that includes life expectancy data and additional health-related indicators.
+This project leverages **SQL** and **Python** to analyze and explore the World Life Expectancy dataset. The dataset provides metrics such as life expectancy, adult mortality, GDP, and various health indicators for countries worldwide, spanning multiple years. By combining SQL for data preprocessing and Python for advanced analysis and machine learning, this project offers a comprehensive approach to understanding global health trends.
 
 ---
 
-**Dataset Overview**
+## **Files Included**
 
-The dataset contains the following columns:
+- **`World_Life_Expectancy_SQL.sql`**: Contains SQL queries for data cleaning, exploratory data analysis (EDA), and deriving insights from the dataset.
+- **`WorldLifeExpectancy.csv`**: The raw dataset, including life expectancy and health-related indicators, in CSV format.
+- **`analysis.py`**: Python script implementing data exploration, machine learning models, and visualizations.
+
+---
+
+## **Dataset Overview**
+
+The dataset includes the following columns:
 
 - **Country**: Name of the country.
 - **Year**: Year of the data point.
-- **Status**: The development status of the country (Developed/Developing).
-- **Life Expectancy**: The life expectancy for that year in the country.
-- **Adult Mortality**: The number of adult deaths per 1,000 people.
-- **Infant Deaths**: The number of infant deaths per 1,000 live births.
-- **Percentage Expenditure**: The percentage of government expenditure on health.
-- **Measles**: The number of reported measles cases.
-- **BMI**: The average body mass index of the population.
-- **Under-Five Deaths**: The number of deaths for children under five per 1,000 people.
-- **Polio**: Immunization coverage for polio (percentage).
-- **Diphtheria**: Immunization coverage for diphtheria (percentage).
-- **HIV/AIDS**: HIV/AIDS death rate (per 1,000 adults aged 15–49).
-- **GDP**: Gross Domestic Product per capita (in US dollars).
-- **Thinness 1-19 years**: Percentage of thinness in the population aged 1-19 years.
-- **Thinness 5-9 years**: Percentage of thinness in the population aged 5-9 years.
-- **Schooling**: Average number of years of schooling.
+- **Status**: Development status of the country (Developed/Developing).
+- **Life Expectancy**: Average life expectancy for the year in the country.
+- **Adult Mortality**: Adult deaths per 1,000 people.
+- **Infant Deaths**: Infant deaths per 1,000 live births.
+- **Percentage Expenditure**: Percentage of government expenditure on health.
+- **Measles**: Reported measles cases.
+- **BMI**: Average body mass index of the population.
+- **Under-Five Deaths**: Deaths of children under five per 1,000 people.
+- **Polio**: Immunization coverage for polio (%).
+- **Diphtheria**: Immunization coverage for diphtheria (%).
+- **HIV/AIDS**: HIV/AIDS death rate per 1,000 adults aged 15–49.
+- **GDP**: Gross Domestic Product per capita (in USD).
+- **Thinness 1-19 years**: Percentage of thinness in the population aged 1-19.
+- **Thinness 5-9 years**: Percentage of thinness in the population aged 5-9.
+- **Schooling**: Average years of schooling.
 - **Row_ID**: Unique identifier for each row.
 
 ---
 
-**SQL Queries**
+## **SQL Analysis**
 
-**Data Cleaning**
+### **Data Cleaning**
+- **Remove Duplicates**: Ensures each `Country-Year` pair is unique to avoid redundant analysis.
+- **Handle Missing Values**: 
+  - Fills missing `Life Expectancy` values using the average of adjacent years.
+  - Resolves missing `Status` values based on other records for the same country.
 
-- **Remove Duplicates**: Identifies and removes duplicate rows based on Country and Year to ensure no repeated entries.
-- **Handle Missing Data**: Fills in missing values for Life Expectancy using the average of surrounding years and ensures the Status field is consistent.
+### **Exploratory Data Analysis (EDA)**
+- **Life Expectancy Trends**: Tracks changes in life expectancy over time for each country and identifies the top 10 countries with the largest improvements.
+- **GDP vs Life Expectancy**: Evaluates how GDP correlates with life expectancy, highlighting differences between high- and low-GDP nations.
+- **Status-Based Analysis**: Compares life expectancy between developed and developing countries.
+- **Health Indicators**: Analyzes relationships between BMI, immunization rates, and life expectancy.
 
-**Exploratory Data Analysis (EDA)**
-
-- **Life Expectancy Trends**: Computes the minimum and maximum life expectancy for each country and calculates the increase in life expectancy over time.
-- **GDP vs Life Expectancy**: Analyzes the correlation between GDP and life expectancy, showing how life expectancy trends differ in countries with high versus low GDP.
-- **Status-based Analysis**: Computes the average life expectancy for developed and developing countries.
-- **Health Indicators**: Looks into metrics such as BMI, infant mortality, and immunization coverage.
-
-**Rolling Totals**
-
-- Calculates rolling totals for specific metrics, such as Adult Mortality, to track cumulative data over time for each country.
-
----
-
-**How to Use**
-
-1. **Import the Dataset**:
-   - Load the `WorldLifeExpectancy.csv` dataset into your database using appropriate tools or SQL commands.
-
-2. **Run the SQL Queries**:
-   - The `World_Life_Expectancy_SQL.sql` file contains SQL queries that can be run in any SQL environment (e.g., MySQL, PostgreSQL) for analysis and exploration.
-
-3. **Required Table Schema**:
-   - The queries assume the table is named `world_life_expectancy` and includes the columns described above. Make sure the dataset is loaded correctly before running the queries.
+### **Rolling Totals**
+- Computes cumulative metrics like Adult Mortality for better trend tracking.
 
 ---
 
-**License**
+## **Python Analysis**
 
-This project is for educational purposes. Feel free to modify and adapt it to your own use cases.
+### **Key Features**
+- **Data Preprocessing**:
+  - Handles missing values, applies log transformations to skewed features like GDP, and encodes categorical variables (e.g., `Status`).
+- **Machine Learning**:
+  - Implements a **Random Forest Regressor** for predicting life expectancy using features like GDP, BMI, schooling, and development status.
+  - Hyperparameter optimization via `RandomizedSearchCV` ensures the best model performance.
+- **Model Performance**:
+  - **RMSE**: 4.89
+  - **R²**: 0.76
+  - These metrics demonstrate the model's effectiveness in predicting life expectancy.
+
+### **Visualizations**
+- Feature Importance: Highlights the most impactful factors on life expectancy.
+- Predicted vs Actual: Validates the model's predictive power.
+- Residual Analysis: Evaluates prediction accuracy.
+
+---
+
+## **How to Use**
+
+### **Setup**
+1. **Database Creation**:
+   - Import the `WorldLifeExpectancy.csv` into a relational database (e.g., MySQL or SQLite) using tools like SQL Workbench or Python's `sqlite3`.
+   - Ensure the table is named `world_life_expectancy`.
+
+2. **Run SQL Queries**:
+   - Use the `World_Life_Expectancy_SQL.sql` file to clean and analyze the dataset.
+
+3. **Execute Python Analysis**:
+   - Use the `analysis.py` script to:
+     - Perform advanced machine learning and feature engineering.
+     - Visualize results for deeper insights.
+
+### **Dependencies**
+- Install required Python libraries using:
+  ```bash
+  pip install -r requirements.txt
